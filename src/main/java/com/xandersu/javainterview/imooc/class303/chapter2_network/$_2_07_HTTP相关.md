@@ -47,6 +47,51 @@ HTTP请求报文
 - 4xx：客户端错误--请求有语法错误或请求无法实现
 - 5xx：服务端错误--服务器未能实现合法的请求
 ### 常见状态码
+- 200 OK：正常饭回信息
+- 400 Bad Request:客户端请求有语法错误，不能被服务器所理解
+- 401 Unauthorized:请求未授权，这个状态吗必须和WWW-Authenticate报头域一起使用
+- 403 Forbidden：服务器收到请求，但是拒绝提供服务
+- 404 Not Found：请求的资源不存在，eg，输入了错误的URL
+- 500 Internal Server Error：服务器发生不可预期的错误
+- 503 Server Unavailable:服务器当前不能处理客户端的请求，一段时间后可能恢复正常
+
+## GET请求和POST请求区别
+### 三个层面来解答
+- HTTP报文层面：GET将请求信息放在URL，POST请求放在报文体中
+- 数据库层面：GET符合幂等性和安全性，POST不符合
+- 其他层面：GET可以被缓存、被存储，而POST不行
+
+## Cookie和Session的区别
+### Cookie简介
+- 是由服务器发给客户端的特殊信息，以文本的形式存放在客户端
+- 客户端再次请求的时候，会把Cookie回发
+- 服务器接收到后，会解析Cookie生成与客户端相对应的内容
+### Cookie的设置以及发送过程
+1. 客户端发送HTTP请求到服务端
+2. 服务端发送HTTP相应到客户端，包括Set-Cookie的头部
+3. 客户端发送HTTP请求到服务端，包括了Cookie头部
+4. 服务端发送HTTP相应
+
+### Session简介
+
+- 服务端的机制，在服务器上保存信息
+- 解析客户端请求并操作session id，按需保存状态信息
+
+### Session的实现方式
+
+- 使用Cookie来实现
+
+   1.客户端 request
+   2.服务端 response Set-Cookie:JSESSIONID=XXX
+   3.客户端 request Cookie:JSESSIONID=XXX
+   4.服务端 response
+   
+- 使用URL回写来实现：URL写在JSESSIONID的参数
+
+### Cookie和Session的区别
+- Cookie数据存放在客户的浏览器上，Session数据放在服务器上
+- Session比Cookie更安全
+- 若考虑减轻服务器负担，应当使用Cookie
 
 
 
